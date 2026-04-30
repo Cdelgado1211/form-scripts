@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
      ========================= */
 
   var montoInput = document.querySelector(".montoPlan input");
-  var opcion = document.querySelector("#li_2 label"); // ajusta si cambia
-
+  var opcion = document.querySelector("#li_2 label") 
+           || document.querySelector("#li_4 label");
   if (montoInput && opcion && montoInput.value) {
     opcion.innerHTML = opcion.innerHTML.replace("XXX", montoInput.value);
   }
