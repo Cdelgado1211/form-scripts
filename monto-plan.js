@@ -27,8 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
      ========================= */
 
   var montoInput = document.querySelector(".montoPlan input");
-  var opcion = document.querySelector("#li_2 label") 
-           || document.querySelector("#li_4 label");
+  var opcion = Array.from(document.querySelectorAll("li.checkboxes label, li label"))
+  .find(function (label) {
+    return label.innerHTML.includes("XXX");
+  });
   if (montoInput && opcion && montoInput.value) {
     opcion.innerHTML = opcion.innerHTML.replace("XXX", montoInput.value);
   }
