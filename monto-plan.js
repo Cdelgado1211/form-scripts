@@ -27,12 +27,52 @@ document.addEventListener("DOMContentLoaded", function () {
      ========================= */
 
   var montoInput = document.querySelector(".montoPlan input");
-  var opcion = Array.from(document.querySelectorAll("li.checkboxes label, li label"))
-  .find(function (label) {
+
+  var opcion = Array.from(
+    document.querySelectorAll("li.checkboxes label, li label")
+  ).find(function (label) {
     return label.innerHTML.includes("XXX");
   });
+
   if (montoInput && opcion && montoInput.value) {
-    opcion.innerHTML = opcion.innerHTML.replace("XXX", montoInput.value);
+
+    var monto = parseFloat(montoInput.value);
+
+    if (!isNaN(monto)) {
+      monto = monto.toFixed(2);
+    }
+
+    opcion.innerHTML = opcion.innerHTML.replace("XXX", monto);
   }
+
+
+  /* =========================
+     DESHABILITAR BOTON
+     HASTA MARCAR CHECKBOXES
+     ========================= */
+
+  document.querySelectorAll('form').forEach(function(form) {
+
+    var checks = form.querySelectorAll('.opcion');
+    var button = form.querySelector('button[type="submit"]');
+
+    // Ignora formularios sin checks o sin botón
+    if (!checks.length || !button) return;
+
+    function validateForm() {
+
+      var allChecked = Array.from(checks).every(function(check) {
+        return check.checked;
+      });
+
+      button.disabled = !allChecked;
+    }
+
+    checks.forEach(function(check) {
+      check.addEventListener('change', validateForm);
+    });
+
+    validateForm();
+  });
 
 });
