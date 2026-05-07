@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================
-     SALUDO (FirstName / Company)
+     SALUDO
      ========================= */
 
   var saludoInput = document.querySelector(".saludoNombre input");
@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var montoInput = document.querySelector(".montoPlan input");
 
-  var opcion = Array.from(
+  var opcionMonto = Array.from(
     document.querySelectorAll("li.checkboxes label, li label")
   ).find(function (label) {
     return label.innerHTML.includes("XXX");
   });
 
-  if (montoInput && opcion && montoInput.value) {
+  if (montoInput && opcionMonto && montoInput.value) {
 
     var montoTexto = montoInput.value
       .replace("$", "")
@@ -44,37 +44,45 @@ document.addEventListener("DOMContentLoaded", function () {
     var monto = parseFloat(montoTexto);
 
     if (!isNaN(monto)) {
-      monto = monto.toFixed(2);
+      monto = "$" + monto.toFixed(2);
+    } else {
+      monto = montoInput.value;
     }
 
-    opcion.innerHTML = opcion.innerHTML.replace("XXX", "$" + monto);
+    opcionMonto.innerHTML = opcionMonto.innerHTML.replace("XXX", monto);
   }
 
 
   /* =========================
-     DESHABILITAR BOTON
-     HASTA MARCAR CHECKBOXES
+     BOTON BLOQUEADO HASTA CHECKS
      ========================= */
 
-  document.querySelectorAll('form').forEach(function(form) {
+  document.querySelectorAll("form").forEach(function (form) {
 
-    var checks = form.querySelectorAll('.opcion');
-    var button = form.querySelector('button[type="submit"]');
+    var checks = form.querySelectorAll("li.opcion input[type='checkbox']");
 
-    // Ignora formularios sin checks o sin botón
+    var button = form.querySelector(
+      "button[type='submit'], input[type='submit']"
+    );
+
     if (!checks.length || !button) return;
 
     function validateForm() {
-
-      var allChecked = Array.from(checks).every(function(check) {
+      var allChecked = Array.from(checks).every(function (check) {
         return check.checked;
       });
 
       button.disabled = !allChecked;
+
+      if (allChecked) {
+        button.classList.remove("btn-disabled");
+      } else {
+        button.classList.add("btn-disabled");
+      }
     }
 
-    checks.forEach(function(check) {
-      check.addEventListener('change', validateForm);
+    checks.forEach(function (check) {
+      check.addEventListener("change", validateForm);
     });
 
     validateForm();
