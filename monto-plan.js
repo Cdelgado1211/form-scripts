@@ -54,30 +54,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================
-     BOTON BLOQUEADO HASTA CHECKS
-     ========================= */
+   BOTON BLOQUEADO HASTA CHECKS
+   ========================= */
 
   document.querySelectorAll("form").forEach(function (form) {
 
     var checks = form.querySelectorAll("li.opcion input[type='checkbox']");
-
-    var button = form.querySelector(
-      "button[type='submit'], input[type='submit']"
-    );
+    var button = form.querySelector("#submit_form, input[type='submit'], button[type='submit']");
 
     if (!checks.length || !button) return;
+
+    function setDisabledStyle() {
+      button.disabled = true;
+      button.classList.add("btn-disabled");
+
+      button.style.setProperty("background", "#f1f5f9", "important");
+      button.style.setProperty("background-image", "none", "important");
+      button.style.setProperty("color", "#94a3b8", "important");
+      button.style.setProperty("box-shadow", "none", "important");
+      button.style.setProperty("cursor", "not-allowed", "important");
+      button.style.setProperty("opacity", "1", "important");
+      button.style.setProperty("transform", "none", "important");
+    }
+
+    function setEnabledStyle() {
+      button.disabled = false;
+      button.classList.remove("btn-disabled");
+
+      button.style.removeProperty("background");
+      button.style.removeProperty("background-image");
+      button.style.removeProperty("color");
+      button.style.removeProperty("box-shadow");
+      button.style.removeProperty("cursor");
+      button.style.removeProperty("opacity");
+      button.style.removeProperty("transform");
+    }
 
     function validateForm() {
       var allChecked = Array.from(checks).every(function (check) {
         return check.checked;
       });
 
-      button.disabled = !allChecked;
-
       if (allChecked) {
-        button.classList.remove("btn-disabled");
+        setEnabledStyle();
       } else {
-        button.classList.add("btn-disabled");
+        setDisabledStyle();
       }
     }
 
