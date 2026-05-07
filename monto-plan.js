@@ -36,13 +36,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (montoInput && opcion && montoInput.value) {
 
-    var monto = parseFloat(montoInput.value);
+    var montoTexto = montoInput.value
+      .replace("$", "")
+      .replace(",", "")
+      .trim();
+
+    var monto = parseFloat(montoTexto);
 
     if (!isNaN(monto)) {
       monto = monto.toFixed(2);
     }
 
-    opcion.innerHTML = opcion.innerHTML.replace("XXX", monto);
+    opcion.innerHTML = opcion.innerHTML.replace("XXX", "$" + monto);
   }
 
 
