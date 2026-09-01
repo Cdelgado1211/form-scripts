@@ -23,33 +23,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================
-     MONTO PLAN EN CHECKBOX
-     ========================= */
+    MONTOS DEL PLAN EN CHECKBOX
+    ========================= */
 
   var montoInput = document.querySelector(".montoPlan input");
+  var promotionalInput = document.querySelector(".promotionalAmount input");
 
   var opcionMonto = Array.from(
     document.querySelectorAll("li.checkboxes label, li label")
   ).find(function (label) {
-    return label.innerHTML.includes("XXX");
+    return label.innerHTML.includes("XXX") || label.innerHTML.includes("YYY");
   });
 
-  if (montoInput && opcionMonto && montoInput.value) {
+  if (opcionMonto) {
 
-    var montoTexto = montoInput.value
-      .replace("$", "")
-      .replace(",", "")
-      .trim();
+    /* PRECIO EFECTIVO - XXX */
+    if (montoInput && montoInput.value) {
 
-    var monto = parseFloat(montoTexto);
+      var montoTexto = montoInput.value
+        .replace("$", "")
+        .replace(",", "")
+        .trim();
 
-    if (!isNaN(monto)) {
-      monto = "$" + monto.toFixed(2);
-    } else {
-      monto = montoInput.value;
+      var monto = parseFloat(montoTexto);
+
+      if (!isNaN(monto)) {
+        monto = "$" + monto.toFixed(2);
+      } else {
+        monto = montoInput.value;
+      }
+
+      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("$XXX", monto);
     }
 
-    opcionMonto.innerHTML = opcionMonto.innerHTML.replace("XXX", monto);
+
+    /* PRECIO PROMOCIONAL - YYY */
+    if (promotionalInput && promotionalInput.value) {
+
+      var promotionalTexto = promotionalInput.value
+        .replace("$", "")
+        .replace(",", "")
+        .trim();
+
+      var promotionalAmount = parseFloat(promotionalTexto);
+
+      if (!isNaN(promotionalAmount)) {
+        promotionalAmount = "$" + promotionalAmount.toFixed(2);
+      } else {
+        promotionalAmount = promotionalInput.value;
+      }
+
+      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("$YYY", promotionalAmount);
+    }
   }
 
 
