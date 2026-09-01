@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         monto = montoInput.value;
       }
 
-      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("$XXX", monto);
+      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("XXX", monto);
     }
 
 
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         promotionalAmount = promotionalInput.value;
       }
 
-      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("$YYY", promotionalAmount);
+      opcionMonto.innerHTML = opcionMonto.innerHTML.replace("YYY", promotionalAmount);
     }
   }
 
