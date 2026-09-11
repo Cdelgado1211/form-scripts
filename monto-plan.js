@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var companyInput = document.querySelector(".companyName input");
 
   if (saludoInput) {
+
     var nombre = saludoInput.value.trim();
 
     if (!nombre && companyInput && companyInput.value.trim() !== "") {
@@ -18,26 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
       nombre = "Cliente";
     }
 
+    /* Mantener el valor real en MachForm */
     saludoInput.value = nombre;
 
-    /* Ajustar el ancho del input al tamaño real del nombre */
-    var canvas = document.createElement("canvas");
-    var context = canvas.getContext("2d");
+    /* Ocultar el input original */
+    saludoInput.style.setProperty("display", "none", "important");
 
-    var estilos = window.getComputedStyle(saludoInput);
+    /* Crear texto visible */
+    var nombreVisible = document.createElement("span");
+    nombreVisible.className = "saludoNombreTexto";
+    nombreVisible.textContent = nombre;
 
-    context.font =
-      estilos.fontWeight + " " +
-      estilos.fontSize + " " +
-      estilos.fontFamily;
-
-    var anchoTexto = context.measureText(nombre).width;
-
-    saludoInput.style.setProperty(
-      "width",
-      Math.ceil(anchoTexto + 8) + "px",
-      "important"
-    );
+    saludoInput.insertAdjacentElement("afterend", nombreVisible);
   }
 
 
