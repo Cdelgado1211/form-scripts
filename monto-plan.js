@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================
-     SALUDO
-     ========================= */
+   SALUDO
+   ========================= */
 
   var saludoInput = document.querySelector(".saludoNombre input");
   var companyInput = document.querySelector(".companyName input");
@@ -19,6 +19,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     saludoInput.value = nombre;
+
+    /* Ajustar el ancho del input al tamaño real del nombre */
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+
+    var estilos = window.getComputedStyle(saludoInput);
+
+    context.font =
+      estilos.fontWeight + " " +
+      estilos.fontSize + " " +
+      estilos.fontFamily;
+
+    var anchoTexto = context.measureText(nombre).width;
+
+    saludoInput.style.setProperty(
+      "width",
+      Math.ceil(anchoTexto + 8) + "px",
+      "important"
+    );
   }
 
 
