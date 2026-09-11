@@ -1,25 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================
-     SALUDO
-     ========================= */
+   SALUDO
+   ========================= */
 
-  var saludoInput = document.querySelector(".saludoNombre input");
-  var companyInput = document.querySelector(".companyName input");
+var saludoInput = document.querySelector(".saludoNombre input");
+var companyInput = document.querySelector(".companyName input");
 
-  if (saludoInput) {
-    var nombre = saludoInput.value.trim();
+if (saludoInput) {
 
-    if (!nombre && companyInput && companyInput.value.trim() !== "") {
-      nombre = companyInput.value.trim();
-    }
+  var nombre = saludoInput.value.trim();
 
-    if (!nombre) {
-      nombre = "Cliente";
-    }
-
-    saludoInput.value = nombre;
+  if (!nombre && companyInput && companyInput.value.trim() !== "") {
+    nombre = companyInput.value.trim();
   }
+
+  if (!nombre) {
+    nombre = "Cliente";
+  }
+
+  /* Mantener el valor dentro del input */
+  saludoInput.value = nombre;
+
+  /* Crear texto visible */
+  var nombreVisible = document.createElement("span");
+  nombreVisible.className = "saludoNombreTexto";
+  nombreVisible.textContent = nombre;
+
+  saludoInput.insertAdjacentElement("afterend", nombreVisible);
+}
 
 
   /* =========================
