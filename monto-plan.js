@@ -19,44 +19,37 @@ document.addEventListener("DOMContentLoaded", function () {
       nombre = "Cliente";
     }
 
-    /* Mantener el valor real en MachForm */
+    /* Mantener el dato real en MachForm */
     saludoInput.value = nombre;
 
-    /* Ocultar el input original */
+    /* Ocultar el input */
     saludoInput.style.setProperty("display", "none", "important");
 
     var contenedor = saludoInput.parentElement;
 
-    /* Evitar duplicarlo si el script se ejecuta otra vez */
-    var saludoExistente = contenedor.querySelector(".saludoLinea");
+    /* Crear el saludo visual una sola vez */
+    var saludoVista = contenedor.querySelector(".saludoVista");
 
-    if (!saludoExistente) {
+    if (!saludoVista) {
+      saludoVista = document.createElement("div");
+      saludoVista.className = "saludoVista";
 
-      var saludoLinea = document.createElement("span");
-      saludoLinea.className = "saludoLinea";
-
-      var holaTexto = document.createElement("span");
-      holaTexto.className = "saludoHola";
-      holaTexto.textContent = "Hola ";
-
-      var nombreTexto = document.createElement("span");
-      nombreTexto.className = "saludoNombreTexto";
-      nombreTexto.textContent = nombre;
-
-      saludoLinea.appendChild(holaTexto);
-      saludoLinea.appendChild(nombreTexto);
-
-      saludoInput.insertAdjacentElement("afterend", saludoLinea);
-
-    } else {
-
-      var nombreTextoExistente =
-        saludoExistente.querySelector(".saludoNombreTexto");
-
-      if (nombreTextoExistente) {
-        nombreTextoExistente.textContent = nombre;
-      }
+      saludoInput.insertAdjacentElement("afterend", saludoVista);
     }
+
+    /* Limpiar por si el script vuelve a ejecutarse */
+    saludoVista.innerHTML = "";
+
+    /* Hola */
+    saludoVista.appendChild(
+      document.createTextNode("Hola ")
+    );
+
+    /* Nombre */
+    var nombreVista = document.createElement("strong");
+    nombreVista.textContent = nombre;
+
+    saludoVista.appendChild(nombreVista);
   }
 
   /* =========================
