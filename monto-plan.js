@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  /* =========================
+/* =========================
    SALUDO
    ========================= */
 
@@ -19,15 +19,22 @@ if (saludoInput) {
     nombre = "Cliente";
   }
 
-  /* Mantener el valor dentro del input */
+  /* Mantener valor para MachForm */
   saludoInput.value = nombre;
 
-  /* Crear texto visible */
-  var nombreVisible = document.createElement("span");
-  nombreVisible.className = "saludoNombreTexto";
-  nombreVisible.textContent = nombre;
+  /* Ocultar físicamente el input original */
+  saludoInput.style.setProperty("display", "none", "important");
 
-  saludoInput.insertAdjacentElement("afterend", nombreVisible);
+  /* Evitar crear el texto dos veces */
+  var nombreVisible = document.querySelector(".saludoNombreTexto");
+
+  if (!nombreVisible) {
+    nombreVisible = document.createElement("span");
+    nombreVisible.className = "saludoNombreTexto";
+    saludoInput.insertAdjacentElement("afterend", nombreVisible);
+  }
+
+  nombreVisible.textContent = nombre;
 }
 
 
