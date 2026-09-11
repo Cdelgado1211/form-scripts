@@ -25,14 +25,39 @@ document.addEventListener("DOMContentLoaded", function () {
     /* Ocultar el input original */
     saludoInput.style.setProperty("display", "none", "important");
 
-    /* Crear texto visible */
-    var nombreVisible = document.createElement("span");
-    nombreVisible.className = "saludoNombreTexto";
-    nombreVisible.textContent = nombre;
+    var contenedor = saludoInput.parentElement;
 
-    saludoInput.insertAdjacentElement("afterend", nombreVisible);
+    /* Evitar duplicarlo si el script se ejecuta otra vez */
+    var saludoExistente = contenedor.querySelector(".saludoLinea");
+
+    if (!saludoExistente) {
+
+      var saludoLinea = document.createElement("span");
+      saludoLinea.className = "saludoLinea";
+
+      var holaTexto = document.createElement("span");
+      holaTexto.className = "saludoHola";
+      holaTexto.textContent = "Hola ";
+
+      var nombreTexto = document.createElement("span");
+      nombreTexto.className = "saludoNombreTexto";
+      nombreTexto.textContent = nombre;
+
+      saludoLinea.appendChild(holaTexto);
+      saludoLinea.appendChild(nombreTexto);
+
+      saludoInput.insertAdjacentElement("afterend", saludoLinea);
+
+    } else {
+
+      var nombreTextoExistente =
+        saludoExistente.querySelector(".saludoNombreTexto");
+
+      if (nombreTextoExistente) {
+        nombreTextoExistente.textContent = nombre;
+      }
+    }
   }
-
 
   /* =========================
     MONTOS DEL PLAN EN CHECKBOX
