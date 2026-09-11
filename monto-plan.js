@@ -1,41 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-/* =========================
-   SALUDO
-   ========================= */
+  /* =========================
+     SALUDO
+     ========================= */
 
-var saludoInput = document.querySelector(".saludoNombre input");
-var companyInput = document.querySelector(".companyName input");
+  var saludoInput = document.querySelector(".saludoNombre input");
+  var companyInput = document.querySelector(".companyName input");
 
-if (saludoInput) {
+  if (saludoInput) {
+    var nombre = saludoInput.value.trim();
 
-  var nombre = saludoInput.value.trim();
+    if (!nombre && companyInput && companyInput.value.trim() !== "") {
+      nombre = companyInput.value.trim();
+    }
 
-  if (!nombre && companyInput && companyInput.value.trim() !== "") {
-    nombre = companyInput.value.trim();
+    if (!nombre) {
+      nombre = "Cliente";
+    }
+
+    saludoInput.value = nombre;
   }
-
-  if (!nombre) {
-    nombre = "Cliente";
-  }
-
-  /* Mantener valor para MachForm */
-  saludoInput.value = nombre;
-
-  /* Ocultar físicamente el input original */
-  saludoInput.style.setProperty("display", "none", "important");
-
-  /* Evitar crear el texto dos veces */
-  var nombreVisible = document.querySelector(".saludoNombreTexto");
-
-  if (!nombreVisible) {
-    nombreVisible = document.createElement("span");
-    nombreVisible.className = "saludoNombreTexto";
-    saludoInput.insertAdjacentElement("afterend", nombreVisible);
-  }
-
-  nombreVisible.textContent = nombre;
-}
 
 
   /* =========================
